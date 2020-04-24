@@ -1,0 +1,25 @@
+body {
+    --white: #ffffff;
+    --main-white: #c4c1c1;
+    --main-purple: #563d7c;
+}
+
+/* navbar */
+.my-navbar {
+    background-color: var(--main-purple);
+    padding: 8px;
+}
+
+.my-navbar a {
+    color: var(--main-white);
+}
+
+.my-navbar a:hover {
+    color: var(--white);
+    border: none;
+}
+
+/* .active {
+    background-color: var(--white) !important;
+
+} */

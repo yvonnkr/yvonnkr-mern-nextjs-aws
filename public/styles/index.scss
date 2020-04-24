@@ -1,0 +1,52 @@
+$white: #ffffff;
+$main-white: #c4c1c1;
+$main-purple: #563d7c;
+
+// Nprogress
+#nprogress {
+  .bar {
+    height: 4px !important;
+    background-color: $white !important;
+  }
+
+  .spinner-icon {
+    border-top-color: $white !important;
+    border-left-color: $white !important;
+  }
+
+}
+
+// navbar 
+.my-navbar {
+  background-color: $main-purple;
+  padding: 8px;
+
+  a {
+    color: $main-white;
+  }
+
+  a:hover {
+    color: $white;
+    border: none !important;
+  }
+}
+
+//register/signup-form
+.my-form {
+  button {
+    font-weight: bolder;
+
+    &.inverted {
+      background-color: white;
+      color: $main-purple;
+      border: 1px solid $main-purple;
+
+      &:hover {
+        background-color: $main-purple;
+        color: white;
+        border: none;
+      }
+    }
+
+  }
+}
