@@ -81,7 +81,7 @@ const Register = () => {
           <br />
           {registerForm()}
           {JSON.stringify(state)}
-          {process.env.my_secrete}
+          {process.env.my_secrete && <p>env present</p>}
         </div>
       </Layout>
     </React.Fragment>
