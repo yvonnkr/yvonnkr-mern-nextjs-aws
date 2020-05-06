@@ -1,11 +1,7 @@
-import Layout from "../components/Layout";
-
 const Home = () => {
   return (
     <React.Fragment>
-      <Layout>
-        <h1>Home Page</h1>
-      </Layout>
+      <h1>Home Page</h1>
     </React.Fragment>
   );
 };

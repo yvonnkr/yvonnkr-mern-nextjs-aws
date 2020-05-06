@@ -1,11 +1,11 @@
 $white: #ffffff;
-$main-white: #c4c1c1;
+$main-white: #e2dede;
 $main-purple: #563d7c;
 
 // Nprogress
 #nprogress {
   .bar {
-    height: 4px !important;
+    height: 2px !important;
     background-color: $white !important;
   }
 
@@ -21,13 +21,17 @@ $main-purple: #563d7c;
   background-color: $main-purple;
   padding: 8px;
 
-  a {
+  a,
+  li {
     color: $main-white;
+
   }
 
-  a:hover {
+  a:hover,
+  li:hover {
     color: $white;
     border: none !important;
+    cursor: pointer;
   }
 }
 
@@ -49,4 +53,31 @@ $main-purple: #563d7c;
     }
 
   }
+}
+
+//globals
+.my-button {
+  background-color: $main-purple;
+  color: white;
+  border: none;
+
+  &:hover {
+    background-color: white;
+    color: $main-purple;
+    border: 1px solid $main-purple;
+  }
+
+}
+
+.my-button-inverted {
+  background-color: white;
+  color: $main-purple;
+  border: 1px solid $main-purple;
+
+  &:hover {
+    background-color: $main-purple;
+    color: white;
+    border: none;
+  }
+
 }
