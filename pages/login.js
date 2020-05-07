@@ -95,7 +95,9 @@ const Login = () => {
       {success && showSuccessMessage(success)}
       {error && showErrorMessage(error)}
       {loginForm()}
-      {/* <pre>{JSON.stringify(state, null, 4)}</pre> */}
+      <Link href="/auth/password/forgot">
+        <a className="text-danger float-right">Forgot Password</a>
+      </Link>
     </div>
   );
 };
