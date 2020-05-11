@@ -4,6 +4,9 @@ import Nprogress from "nprogress";
 
 import "nprogress/nprogress.css";
 import "../public/styles/index.scss";
+// import "react-quill/dist/quill.bubble.css";
+import "react-quill/dist/quill.snow.css";
+
 import Layout from "./../components/Layout";
 
 Router.onRouteChangeStart = (url) => Nprogress.start();

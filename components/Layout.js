@@ -40,7 +40,6 @@ const Layout = ({ children }) => {
       {isAuth() && isAuth().role === "admin" && (
         <li className="nav-item ml-auto">
           <Link href="/admin">
-            {/* <a className="nav-link ">{isAuth().name}</a> */}
             <a className="nav-link ">
               {isAuth().name}-<span>Admin</span>
             </a>
@@ -64,32 +63,6 @@ const Layout = ({ children }) => {
         </li>
       )}
     </ul>
-    // <ul className="nav nav-tabs my-navbar ">
-    //   <li className="nav-item " className="nav-item">
-    //     <Link href="/">
-    //       <a className="nav-link">Home</a>
-    //     </Link>
-    //   </li>
-    //   {isAuth ? (
-    //     <li className="nav-item" className="nav-item">
-    //       <Link href="/login">
-    //         <a className="nav-link">Logout</a>
-    //       </Link>
-    //     </li>
-    //   ) : (
-    //     <li className="nav-item" className="nav-item">
-    //       <Link href="/login">
-    //         <a className="nav-link">Login</a>
-    //       </Link>
-    //     </li>
-    //   )}
-
-    //   <li className="nav-item" className="nav-item">
-    //     <Link href="/register">
-    //       <a className="nav-link">Register</a>
-    //     </Link>
-    //   </li>
-    // </ul>
   );
 
   return (
