@@ -46,7 +46,7 @@ const Register = () => {
         error: "",
       });
     } catch (error) {
-      let errMsg = error.response.data.error || "Server error!";
+      let errMsg = error.response?.data.error || "Server error!";
 
       setState({
         ...state,

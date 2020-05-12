@@ -50,7 +50,7 @@ const ResetPassword = () => {
         success: response.data.message,
       });
     } catch (error) {
-      let errMsg = error.response.data.error || "Server error!";
+      let errMsg = error.response?.data.error || "Server error!";
       setState({
         ...state,
         buttonText: "Forgot Password",

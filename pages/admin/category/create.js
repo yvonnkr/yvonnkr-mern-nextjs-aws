@@ -107,7 +107,7 @@ const CreateCategory = ({ user, token }) => {
 
       console.log(data);
     } catch (error) {
-      const errMsg = error.response.data.error || "Sever Error";
+      const errMsg = error.response?.data.error || "Sever Error";
       setState({
         ...state,
         buttonText: "Create",

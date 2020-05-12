@@ -46,7 +46,7 @@ const Login = () => {
           : Router.push("/user")
       );
     } catch (error) {
-      let errMsg = error.response.data.error || "Server error!";
+      let errMsg = error.response?.data.error || "Server error!";
       setState({
         ...state,
         error: errMsg,
