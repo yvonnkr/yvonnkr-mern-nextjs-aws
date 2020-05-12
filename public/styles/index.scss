@@ -90,3 +90,13 @@ $main-purple: #563d7c;
 .my-card {
   background-color: red;
 }
+
+.my-scroll {
+  max-height: 100px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.my-scroll::-webkit-scrollbar {
+  display: none;
+}
