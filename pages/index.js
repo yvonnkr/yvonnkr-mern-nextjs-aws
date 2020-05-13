@@ -5,8 +5,9 @@ import { API } from "../config";
 
 const Home = ({ categories }) => {
   const listCategories = () =>
+    categories &&
     categories.map((category, index) => (
-      <Link href="/" key={index}>
+      <Link href="/links/[slug]" as={`/links/${category.slug}`} key={index}>
         <a
           style={{ border: "1px solid #563d7c", textDecoration: "none" }}
           className="bg-light p-3 col-md-4"
@@ -41,7 +42,10 @@ const Home = ({ categories }) => {
         </div>
       </div>
 
-      <div className="row">{listCategories()}</div>
+      <div className="row">
+        {!categories && <p>server error...</p>}
+        {categories && listCategories()}
+      </div>
     </>
   );
 };
@@ -51,7 +55,7 @@ Home.getInitialProps = async () => {
     const { data } = await axios.get(`${API}/categories`);
     return { categories: data };
   } catch (error) {
-    console.log(error);
+    return { categories: null };
   }
 };
 
