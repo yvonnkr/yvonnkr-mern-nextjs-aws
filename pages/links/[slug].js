@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import renderHTML from "react-render-html";
 import moment from "moment";
+import InfiniteScroll from "react-infinite-scroller";
 import { API } from "../../config";
 
 const Links = (props) => {
@@ -79,26 +80,34 @@ const Links = (props) => {
       </div>
     ));
 
-  const loadMoreButton = () => {
-    return (
-      size > 0 &&
-      size >= limit && (
-        <button className="btn my-button-inverted" onClick={loadMore}>
-          Load More
-        </button>
-      )
-    );
-  };
+  //used infiniteScroll instead....
+  // const loadMoreButton = () => {
+  //   return (
+  //     size > 0 &&
+  //     size >= limit && (
+  //       <button className="btn my-button-inverted" onClick={loadMore}>
+  //         Load More
+  //       </button>
+  //     )
+  //   );
+  // };
 
   return (
-    <>
+    <InfiniteScroll
+      pageStart={0}
+      loadMore={loadMore}
+      hasMore={size > 0 && size >= limit}
+      loader={<img src="/images/loader1.gif" alt="loader" />}
+    >
       <div className="row">
         <div className="col-md-8">
           <h1 className="display-4 font-weight-bold my-text">
             {category.name} - URL | Links
           </h1>
           <div className="lead alert alert-secondary pt-4">
-            {renderHTML(category.content)}
+            <div style={{ wordWrap: "break-word" }}>
+              {renderHTML(category.content)}
+            </div>
           </div>
         </div>
         <div className="col-md-4">
@@ -118,13 +127,13 @@ const Links = (props) => {
         </div>
       </div>
 
-      <div className="text-center pt-4 pb-5">{loadMoreButton()}</div>
-    </>
+      {/* <div className="text-center pt-4 pb-5">{loadMoreButton()}</div> */}
+    </InfiniteScroll>
   );
 };
 
 Links.getInitialProps = async ({ query, req }) => {
-  let limit = 2;
+  let limit = 10;
   let skip = 0;
   try {
     const { data } = await axios.get(
