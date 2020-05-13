@@ -28,10 +28,29 @@ const Links = (props) => {
     }
   };
 
+  const handleClickCount = async (linkId) => {
+    try {
+      await axios.put(`${API}/click-count`, { linkId });
+      loadUpdatedLinks();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const loadUpdatedLinks = async () => {
+    try {
+      const { data } = await axios.get(`${API}/category/${query.slug}`);
+
+      setAllLinks(data.links);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const listOfLinks = () =>
     allLinks.map((link, index) => (
       <div className="row alert alert-primary p-2" key={index}>
-        <div className="col-md-8">
+        <div className="col-md-8" onClick={() => handleClickCount(link._id)}>
           <a href={link.url} target="_blank" style={{ textDecoration: "none" }}>
             <h5 className="pt-2">{link.title}</h5>
             <h6 className="p-2 text-danger" style={{ fontSize: "12px" }}>
@@ -42,6 +61,9 @@ const Links = (props) => {
         <div className="col-md-4 pt-2">
           <span className="pull-right">
             {moment(link.createdAt).fromNow()} by {link.postedBy.name}{" "}
+          </span>
+          <span className="badge text-secondary pull-right">
+            {link.clicks} clicks
           </span>
         </div>
         <div className="col-md-12">
