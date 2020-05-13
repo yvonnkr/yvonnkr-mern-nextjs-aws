@@ -8,10 +8,29 @@ const Links = (props) => {
   const { query, category, links, totalLinks, linksLimit, linksSkip } = props;
 
   const [allLinks, setAllLinks] = useState(links);
+  const [limit, setLimit] = useState(linksLimit);
+  const [skip, setSkip] = useState(linksSkip);
+  const [size, setSize] = useState(totalLinks);
+
+  const loadMore = async () => {
+    let toSkip = skip + limit;
+
+    try {
+      const { data } = await axios.get(
+        `${API}/category/${query.slug}?limit=${limit}&skip=${toSkip}`
+      );
+
+      setAllLinks([...allLinks, ...data.links]);
+      setSize(data.links.length);
+      setSkip(toSkip);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const listOfLinks = () =>
-    allLinks.map((link) => (
-      <div className="row alert alert-primary p-2" key={link._id}>
+    allLinks.map((link, index) => (
+      <div className="row alert alert-primary p-2" key={index}>
         <div className="col-md-8">
           <a href={link.url} target="_blank" style={{ textDecoration: "none" }}>
             <h5 className="pt-2">{link.title}</h5>
@@ -38,6 +57,17 @@ const Links = (props) => {
       </div>
     ));
 
+  const loadMoreButton = () => {
+    return (
+      size > 0 &&
+      size >= limit && (
+        <button className="btn my-button-inverted" onClick={loadMore}>
+          Load More
+        </button>
+      )
+    );
+  };
+
   return (
     <>
       <div className="row">
@@ -57,6 +87,7 @@ const Links = (props) => {
           />
         </div>
       </div>
+
       <div className="row">
         <div className="col-md-8">{listOfLinks()}</div>
         <div className="col-md-4">
@@ -64,8 +95,8 @@ const Links = (props) => {
           <p>Show popular links</p>
         </div>
       </div>
-      <br />
-      <button>load more</button>
+
+      <div className="text-center pt-4 pb-5">{loadMoreButton()}</div>
     </>
   );
 };
