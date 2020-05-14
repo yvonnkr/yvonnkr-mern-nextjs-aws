@@ -97,7 +97,7 @@ const Links = (props) => {
       pageStart={0}
       loadMore={loadMore}
       hasMore={size > 0 && size >= limit}
-      loader={<img src="/images/loader1.gif" alt="loader" />}
+      loader={<img src="/images/loader1.gif" key={0} alt="loader" />}
     >
       <div className="row">
         <div className="col-md-8">
@@ -118,6 +118,7 @@ const Links = (props) => {
           />
         </div>
       </div>
+      <br />
 
       <div className="row">
         <div className="col-md-8">{listOfLinks()}</div>

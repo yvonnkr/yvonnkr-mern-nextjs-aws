@@ -105,7 +105,7 @@ const CreateCategory = ({ user, token }) => {
       setContent("");
       setImageUploadButtonName("Upload image");
 
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       const errMsg = error.response?.data.error || "Sever Error";
       setState({

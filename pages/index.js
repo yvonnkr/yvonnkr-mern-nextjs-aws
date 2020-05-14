@@ -6,8 +6,12 @@ import { API } from "../config";
 const Home = ({ categories }) => {
   const listCategories = () =>
     categories &&
-    categories.map((category, index) => (
-      <Link href="/links/[slug]" as={`/links/${category.slug}`} key={index}>
+    categories.map((category) => (
+      <Link
+        href="/links/[slug]"
+        as={`/links/${category.slug}`}
+        key={category._id}
+      >
         <a
           style={{ border: "1px solid #563d7c", textDecoration: "none" }}
           className="bg-light p-3 col-md-4"
