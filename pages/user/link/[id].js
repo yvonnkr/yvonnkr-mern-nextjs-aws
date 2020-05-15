@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Router from "next/router";
 
 import { API } from "../../../config";
 import {
   showSuccessMessage,
   showErrorMessage,
 } from "./../../../helpers/alerts";
-import { getCookie, isAuth } from "./../../../helpers/auth";
+import { isAuth } from "./../../../helpers/auth";
+import withUser from "./../../withUser";
 
-const CreateLink = ({ token }) => {
+const UpdateLink = ({ selectedLink, token }) => {
   const [state, setState] = useState({
-    title: "",
-    url: "",
-    categories: [],
+    title: selectedLink.title,
+    url: selectedLink.url,
+    categories: selectedLink.categories,
     loadedCategories: [],
     success: "",
     error: "",
-    type: "",
-    medium: "",
+    type: selectedLink.type,
+    medium: selectedLink.medium,
   });
 
   //prettier-ignore
@@ -75,8 +77,8 @@ const CreateLink = ({ token }) => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post(
-        `${API}/link`,
+      const { data } = await axios.put(
+        `${API}/link/${selectedLink._id}`,
         {
           title,
           url,
@@ -93,14 +95,8 @@ const CreateLink = ({ token }) => {
 
       setState({
         ...state,
-        success: "Link submitted!",
+        success: "Link Updated!",
         error: "",
-        title: "",
-        url: "",
-        categories: [],
-        loadedCategories: [],
-        type: "",
-        medium: "",
       });
     } catch (error) {
       const errMsg = error.response?.data.error || "Server error";
@@ -117,6 +113,7 @@ const CreateLink = ({ token }) => {
             type="checkbox"
             onChange={() => handleToggle(c._id)}
             className="mr-2"
+            checked={categories.includes(c._id)}
           />
           <label className="form-check-label">{c.name}</label>
         </li>
@@ -213,10 +210,16 @@ const CreateLink = ({ token }) => {
       <div>
         <button
           type="submit"
-          className="btn my-button-inverted"
+          className="btn btn-outline-warning"
           disabled={token ? false : true}
         >
-          {isAuth() || token ? "Post" : "Login to post"}
+          {isAuth() || token ? "Update" : "Login to update"}
+        </button>
+        <button
+          className="btn my-button-inverted ml-3"
+          onClick={() => Router.push("/user")}
+        >
+          Back To Dashboard
         </button>
       </div>
     </form>
@@ -226,7 +229,7 @@ const CreateLink = ({ token }) => {
     <>
       <div className="row">
         <div className="col-md-12 my-text" style={{ textAlign: "center" }}>
-          <h1>Submit Link | URL</h1>
+          <h1>Update Link | URL</h1>
           <br />
         </div>
       </div>
@@ -259,30 +262,13 @@ const CreateLink = ({ token }) => {
   );
 };
 
-CreateLink.getInitialProps = async (ctx) => {
-  const token = getCookie("token", ctx.req);
-  return { token };
+UpdateLink.getInitialProps = async ({ query }) => {
+  try {
+    const { data } = await axios.get(`${API}/link/${query.id}`);
+    return { selectedLink: data };
+  } catch (error) {
+    return { selectedLink: null };
+  }
 };
 
-export default CreateLink;
-
-//#region Steps to create/Submit a link in the frontend
-/*
-    # Imports
-    # state
-    # load categories when component mounts with useEffect
-    # link create form
-    # handle change title
-    # handle change url
-    # handle change type
-    # handle change medium
-    # handle submit > post request to server(backend)
-    # show categories > checkbox
-    # show types > radio buttons
-    # show medium > radio buttons
-    # handle toggle > selecting categories
-    # return > show create forms,categories,checkbox,radio butons,success/error messages etc
-    # get token of the logged in user --required to create a link
-
-*/
-//#endregion
+export default withUser(UpdateLink);
