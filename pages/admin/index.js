@@ -1,8 +1,9 @@
 import React from "react";
-import withAdmin from "../withAdmin";
 import Link from "next/link";
 
-const Admin = ({ user }) => {
+import withAdmin from "../withAdmin";
+
+const Admin = ({ user, token }) => {
   return (
     <div>
       <h1 className="my-text">Admin Dashboard</h1>
@@ -22,7 +23,12 @@ const Admin = ({ user }) => {
             </li>
             <li className="nav-item">
               <Link href="/admin/category/read">
-                <a className="nav-link my-text ">Manage Categories</a>
+                <a className="nav-link my-text ">Manage All Categories</a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/admin/link/read">
+                <a className="nav-link my-text ">Manage All Links</a>
               </Link>
             </li>
           </ul>
