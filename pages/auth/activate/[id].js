@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Router, { useRouter } from "next/router";
 import jwt from "jsonwebtoken";
 import axios from "axios";
+import { isAuth } from "../../../helpers/auth";
 
 import { API } from "../../../config";
 import { showErrorMessage, showSuccessMessage } from "../../../helpers/alerts";
@@ -18,6 +19,10 @@ const ActivationAccount = () => {
   const { name, token, buttonText, success, error } = state;
 
   const router = useRouter({});
+
+  useEffect(() => {
+    isAuth() && Router.push("/user");
+  }, []);
 
   useEffect(() => {
     let token = router.query.id;

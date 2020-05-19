@@ -14,13 +14,67 @@ const Register = () => {
     error: "",
     success: "",
     buttonText: "Register",
+    categories: [],
+    loadedCategories: [],
   });
 
-  const { name, email, password, error, success, buttonText } = state;
+  const {
+    name,
+    email,
+    password,
+    error,
+    success,
+    buttonText,
+    categories,
+    loadedCategories,
+  } = state;
 
   useEffect(() => {
     isAuth() && Router.push("/");
   }, []);
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const { data } = await axios.get(`${API}/categories`);
+
+        setState({
+          ...state,
+          loadedCategories: data,
+        });
+      } catch (error) {
+        const errMsg = error.response?.data.error || "Server error";
+        setState({ ...state, error: errMsg, success: "" });
+      }
+    };
+
+    loadCategories();
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+      error: "",
+      success: "",
+      buttonText: "Register",
+    }));
+  };
+
+  const handleToggle = (categoryId) => {
+    //return first index or -1
+    const catIndex = categories.indexOf(categoryId);
+
+    const catArray = [...categories];
+    if (catIndex === -1) {
+      catArray.push(categoryId);
+    } else {
+      catArray.splice(catIndex, 1);
+    }
+
+    setState({ ...state, categories: [...catArray], success: "", error: "" });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +87,7 @@ const Register = () => {
         name,
         email,
         password,
+        categories,
       });
 
       //setState
@@ -41,6 +96,7 @@ const Register = () => {
         name: "",
         email: "",
         password: "",
+        categories: [],
         buttonText: "Submitted",
         success: data.message,
         error: "",
@@ -57,15 +113,20 @@ const Register = () => {
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-      error: "",
-      success: "",
-      buttonText: "Register",
-    }));
+  const showCategories = () => {
+    return (
+      loadedCategories &&
+      loadedCategories.map((c) => (
+        <li className="list-unstyled" key={c._id}>
+          <input
+            type="checkbox"
+            onChange={() => handleToggle(c._id)}
+            className="mr-2"
+          />
+          <label className="form-check-label">{c.name}</label>
+        </li>
+      ))
+    );
   };
 
   const registerForm = () => {
@@ -103,6 +164,12 @@ const Register = () => {
             required
             onChange={handleChange}
           />
+        </div>
+        <div className="form-group">
+          <label className="text-muted ml-4">
+            What topics are you interested on?
+          </label>
+          <ul className="my-scroll">{showCategories()}</ul>
         </div>
         <div>
           <button type="submit" className="btn inverted">
