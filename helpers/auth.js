@@ -102,3 +102,17 @@ export const logout = () => {
   removeLocalStorage("user");
   Router.push("/login");
 };
+
+//update user in local-storage  --eg. useful after profile update
+export const updateUserInLocalstorage = (updatedUser, next) => {
+  if (process.browser) {
+    if (localStorage.getItem("user")) {
+      let authUser = JSON.parse(localStorage.getItem("user"));
+
+      authUser = updatedUser;
+
+      localStorage.setItem("user", JSON.stringify(authUser));
+      next();
+    }
+  }
+};
