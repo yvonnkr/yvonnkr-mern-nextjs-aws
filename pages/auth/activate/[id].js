@@ -6,6 +6,7 @@ import { isAuth } from "../../../helpers/auth";
 
 import { API } from "../../../config";
 import { showErrorMessage, showSuccessMessage } from "../../../helpers/alerts";
+import { HeadSEO } from "../../../components/HeadSEO";
 
 const ActivationAccount = () => {
   const [state, setState] = useState({
@@ -63,20 +64,23 @@ const ActivationAccount = () => {
   };
 
   return (
-    <div className="row">
-      <div className="col-md-6 offset-md-3">
-        <h3>Hello {name}, Ready to activate your account?</h3>
-        <br />
-        {success && showSuccessMessage(success)}
-        {error && showErrorMessage(error)}
-        <button
-          className="btn btn-block my-button-inverted"
-          onClick={clickSubmit}
-        >
-          {buttonText}
-        </button>
+    <>
+      {HeadSEO("Activate Account")}
+      <div className="row">
+        <div className="col-md-6 offset-md-3">
+          <h3>Hello {name}, Ready to activate your account?</h3>
+          <br />
+          {success && showSuccessMessage(success)}
+          {error && showErrorMessage(error)}
+          <button
+            className="btn btn-block my-button-inverted"
+            onClick={clickSubmit}
+          >
+            {buttonText}
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -86,6 +90,7 @@ export default ActivationAccount;
 /* 
 import React from "react";
 import { withRouter } from "next/router";
+import { HeadSEO } from './../../../components/HeadSEO';
 
 const ActivationAccount = ({ router }) => {
   return (

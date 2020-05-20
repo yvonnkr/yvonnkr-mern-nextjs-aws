@@ -1,12 +1,19 @@
 import axios from "axios";
 import Link from "next/link";
 import moment from "moment";
+import Head from "next/head";
 
-import { API } from "../config";
+import { API, APP_NAME } from "../config";
 import { useState, useEffect } from "react";
 
 const Home = ({ categories }) => {
   const [popular, setPopular] = useState([]);
+
+  const head = () => (
+    <Head>
+      <title>Home | {APP_NAME}</title>
+    </Head>
+  );
 
   useEffect(() => {
     loadPopular();
@@ -104,6 +111,7 @@ const Home = ({ categories }) => {
 
   return (
     <>
+      {head()}
       <div className="row">
         <div className="col-md-12">
           <h1 className="my-text" style={{ textAlign: "center" }}>

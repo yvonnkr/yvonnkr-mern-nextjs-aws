@@ -7,6 +7,7 @@ import {
   showErrorMessage,
 } from "./../../../helpers/alerts";
 import { getCookie, isAuth } from "./../../../helpers/auth";
+import { HeadSEO } from "./../../../components/HeadSEO";
 
 const CreateLink = ({ token }) => {
   const [state, setState] = useState({
@@ -224,6 +225,7 @@ const CreateLink = ({ token }) => {
 
   return (
     <>
+      {HeadSEO("Submit Link")}
       <div className="row">
         <div className="col-md-12 my-text" style={{ textAlign: "center" }}>
           <h1>Submit Link | URL</h1>

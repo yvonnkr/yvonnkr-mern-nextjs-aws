@@ -8,6 +8,7 @@ import {
   showSuccessMessage,
   showErrorMessage,
 } from "./../../../helpers/alerts";
+import { HeadSEO } from "./../../../components/HeadSEO";
 
 const ReadCategory = ({ token }) => {
   const [state, setState] = useState({
@@ -105,6 +106,7 @@ const ReadCategory = ({ token }) => {
 
   return (
     <>
+      {HeadSEO("All Categories")}
       <div className="row">
         <div className="col-md-12">
           <h1 className="my-text" style={{ textAlign: "center" }}>

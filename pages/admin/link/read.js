@@ -8,6 +8,7 @@ import Router from "next/router";
 
 import { API } from "../../../config";
 import { getCookie } from "./../../../helpers/auth";
+import { HeadSEO } from "./../../../components/HeadSEO";
 
 const AllLinks = (props) => {
   const { links, totalLinks, linksLimit, linksSkip, token } = props;
@@ -132,23 +133,26 @@ const AllLinks = (props) => {
     ));
 
   return (
-    <InfiniteScroll
-      pageStart={0}
-      loadMore={loadMore}
-      hasMore={size > 0 && size >= limit}
-      loader={<img src="/images/loader1.gif" key={0} alt="loader" />}
-    >
-      <div className="row">
-        <div className="col-md-12">
-          <h1 className="display-4 font-weight-bold my-text">All Links</h1>
+    <>
+      {HeadSEO("All Links")}
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={loadMore}
+        hasMore={size > 0 && size >= limit}
+        loader={<img src="/images/loader1.gif" key={0} alt="loader" />}
+      >
+        <div className="row">
+          <div className="col-md-12">
+            <h1 className="display-4 font-weight-bold my-text">All Links</h1>
+          </div>
         </div>
-      </div>
-      <br />
+        <br />
 
-      <div className="row">
-        <div className="col-md-12">{listOfLinks()}</div>
-      </div>
-    </InfiniteScroll>
+        <div className="row">
+          <div className="col-md-12">{listOfLinks()}</div>
+        </div>
+      </InfiniteScroll>
+    </>
   );
 };
 

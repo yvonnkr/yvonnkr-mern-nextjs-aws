@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { showSuccessMessage, showErrorMessage } from "../../../helpers/alerts";
 import { API } from "../../../config";
+import { HeadSEO } from "./../../../components/HeadSEO";
 
 const ForgotPassword = () => {
   const [state, setState] = useState({
@@ -56,15 +57,18 @@ const ForgotPassword = () => {
   );
 
   return (
-    <div className="row">
-      <div className="col-md-6 offset-md-3">
-        <h1>Forgot Password</h1>
-        <br />
-        {success && showSuccessMessage(success)}
-        {error && showErrorMessage(error)}
-        {passwordForgotForm()}
+    <>
+      {HeadSEO("Forgot Password")}
+      <div className="row">
+        <div className="col-md-6 offset-md-3">
+          <h1>Forgot Password</h1>
+          <br />
+          {success && showSuccessMessage(success)}
+          {error && showErrorMessage(error)}
+          {passwordForgotForm()}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

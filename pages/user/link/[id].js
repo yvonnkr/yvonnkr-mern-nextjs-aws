@@ -9,6 +9,7 @@ import {
 } from "./../../../helpers/alerts";
 import { isAuth } from "./../../../helpers/auth";
 import withUser from "./../../withUser";
+import { HeadSEO } from "./../../../components/HeadSEO";
 
 const UpdateLink = ({ selectedLink, token }) => {
   const [state, setState] = useState({
@@ -227,6 +228,7 @@ const UpdateLink = ({ selectedLink, token }) => {
 
   return (
     <>
+      {HeadSEO("Update Link")}
       <div className="row">
         <div className="col-md-12 my-text" style={{ textAlign: "center" }}>
           <h1>Update Link | URL</h1>

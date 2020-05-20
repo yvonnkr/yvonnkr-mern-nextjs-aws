@@ -5,6 +5,7 @@ import { showSuccessMessage, showErrorMessage } from "../../../helpers/alerts";
 import { API } from "../../../config";
 import withUser from "./../../withUser";
 import { updateUserInLocalstorage } from "../../../helpers/auth";
+import { HeadSEO } from "./../../../components/HeadSEO";
 
 const UpdateProfile = ({ user, token }) => {
   const [state, setState] = useState({
@@ -185,14 +186,17 @@ const UpdateProfile = ({ user, token }) => {
   };
 
   return (
-    <div className="col-md-6 offset-md-3">
-      <h1>Update Profile</h1>
-      <br />
-      {success && showSuccessMessage(success)}
-      {error && showErrorMessage(error)}
-      {updateForm()}
-      {/* <pre>{JSON.stringify(state, null, 4)}</pre> */}
-    </div>
+    <>
+      {HeadSEO("Update Profile")}
+      <div className="col-md-6 offset-md-3">
+        <h1>Update Profile</h1>
+        <br />
+        {success && showSuccessMessage(success)}
+        {error && showErrorMessage(error)}
+        {updateForm()}
+        {/* <pre>{JSON.stringify(state, null, 4)}</pre> */}
+      </div>
+    </>
   );
 };
 

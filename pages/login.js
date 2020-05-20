@@ -6,6 +6,7 @@ import Router from "next/router";
 import { API } from "../config";
 import { authenticate, isAuth } from "./../helpers/auth";
 import { showSuccessMessage, showErrorMessage } from "../helpers/alerts";
+import { HeadSEO } from "./../components/HeadSEO";
 
 const Login = () => {
   const [state, setState] = useState({
@@ -89,16 +90,19 @@ const Login = () => {
   };
 
   return (
-    <div className="col-md-6 offset-md-3">
-      <h1>Login</h1>
-      <br />
-      {success && showSuccessMessage(success)}
-      {error && showErrorMessage(error)}
-      {loginForm()}
-      <Link href="/auth/password/forgot">
-        <a className="text-danger float-right">Forgot Password</a>
-      </Link>
-    </div>
+    <>
+      {HeadSEO("Login")}
+      <div className="col-md-6 offset-md-3">
+        <h1>Login</h1>
+        <br />
+        {success && showSuccessMessage(success)}
+        {error && showErrorMessage(error)}
+        {loginForm()}
+        <Link href="/auth/password/forgot">
+          <a className="text-danger float-right">Forgot Password</a>
+        </Link>
+      </div>
+    </>
   );
 };
 

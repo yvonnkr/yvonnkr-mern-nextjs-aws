@@ -6,6 +6,7 @@ import Router from "next/router";
 
 import withUser from "../withUser";
 import { API } from "../../config";
+import { HeadSEO } from "./../../components/HeadSEO";
 
 const User = ({ user, token }) => {
   const { profile, userLinks } = user;
@@ -86,6 +87,7 @@ const User = ({ user, token }) => {
 
   return (
     <>
+      {HeadSEO("Dashboard")}
       <h1 className="my-text">
         {profile.name}'s dashboard /
         <span className="text-info">{profile.role}</span>

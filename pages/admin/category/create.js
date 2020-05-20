@@ -11,6 +11,7 @@ import {
   showSuccessMessage,
   showErrorMessage,
 } from "./../../../helpers/alerts";
+import { HeadSEO } from "./../../../components/HeadSEO";
 
 const CreateCategory = ({ user, token }) => {
   const [state, setState] = useState({
@@ -166,15 +167,18 @@ const CreateCategory = ({ user, token }) => {
   );
 
   return (
-    <div className="row">
-      <div className="col-md-6 offset-md-3">
-        <h1 className="my-text">Create Category</h1>
-        <br />
-        {success && showSuccessMessage(success)}
-        {error && showErrorMessage(error)}
-        {createCategoryForm()}
+    <>
+      {HeadSEO("Create Category")}
+      <div className="row">
+        <div className="col-md-6 offset-md-3">
+          <h1 className="my-text">Create Category</h1>
+          <br />
+          {success && showSuccessMessage(success)}
+          {error && showErrorMessage(error)}
+          {createCategoryForm()}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

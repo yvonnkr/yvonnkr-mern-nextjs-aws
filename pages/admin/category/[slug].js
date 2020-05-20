@@ -7,6 +7,7 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import { showSuccessMessage, showErrorMessage } from "../../../helpers/alerts";
 import { API } from "../../../config";
 import withAdmin from "../../withAdmin";
+import { HeadSEO } from "./../../../components/HeadSEO";
 
 const UpdateCategory = ({ oldCategory, token }) => {
   const [state, setState] = useState({
@@ -135,17 +136,20 @@ const UpdateCategory = ({ oldCategory, token }) => {
   );
 
   return (
-    <div>
-      <div className="row">
-        <div className="col-md-6 offset-md-3">
-          <h1 className="my-text">Update category</h1>
-          <br />
-          {success && showSuccessMessage(success)}
-          {error && showErrorMessage(error)}
-          {updateCategoryForm()}
+    <>
+      {HeadSEO("Update Category")}
+      <div>
+        <div className="row">
+          <div className="col-md-6 offset-md-3">
+            <h1 className="my-text">Update category</h1>
+            <br />
+            {success && showSuccessMessage(success)}
+            {error && showErrorMessage(error)}
+            {updateCategoryForm()}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

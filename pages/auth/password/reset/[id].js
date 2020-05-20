@@ -8,6 +8,7 @@ import {
 } from "../../../../helpers/alerts";
 import { API } from "../../../../config";
 import jwt from "jsonwebtoken";
+import { HeadSEO } from "./../../../../components/HeadSEO";
 
 const ResetPassword = () => {
   const [state, setState] = useState({
@@ -78,15 +79,18 @@ const ResetPassword = () => {
   );
 
   return (
-    <div className="row">
-      <div className="col-md-6 offset-md-3">
-        <h1>Hi {name}, Ready to Reset Password?</h1>
-        <br />
-        {success && showSuccessMessage(success)}
-        {error && showErrorMessage(error)}
-        {passwordResetForm()}
+    <>
+      {HeadSEO("Reset Password")}
+      <div className="row">
+        <div className="col-md-6 offset-md-3">
+          <h1>Hi {name}, Ready to Reset Password?</h1>
+          <br />
+          {success && showSuccessMessage(success)}
+          {error && showErrorMessage(error)}
+          {passwordResetForm()}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

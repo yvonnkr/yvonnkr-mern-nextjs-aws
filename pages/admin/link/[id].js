@@ -6,6 +6,7 @@ import { API } from "../../../config";
 import { showSuccessMessage, showErrorMessage } from "../../../helpers/alerts";
 import { isAuth } from "./../../../helpers/auth";
 import withAdmin from "./../../withAdmin";
+import { HeadSEO } from "./../../../components/HeadSEO";
 
 const AdminUpdateLink = ({ selectedLink, token }) => {
   const [state, setState] = useState({
@@ -224,6 +225,7 @@ const AdminUpdateLink = ({ selectedLink, token }) => {
 
   return (
     <>
+      {HeadSEO("Update Link")}
       <div className="row">
         <div className="col-md-12 my-text" style={{ textAlign: "center" }}>
           <h1>Update Link | URL</h1>

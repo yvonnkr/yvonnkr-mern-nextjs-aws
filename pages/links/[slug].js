@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
+import Head from "next/head";
 import axios from "axios";
 import renderHTML from "react-render-html";
 import moment from "moment";
 import InfiniteScroll from "react-infinite-scroller";
-import { API } from "../../config";
+import { API, APP_NAME } from "../../config";
 
 const Links = (props) => {
   const { query, category, links, totalLinks, linksLimit, linksSkip } = props;
@@ -13,6 +14,29 @@ const Links = (props) => {
   const [skip, setSkip] = useState(linksSkip);
   const [size, setSize] = useState(totalLinks);
   const [popular, setPopular] = useState([]);
+
+  const stripHtmlTags = (data) => data.replace(/<\/?[^>]+(>|$)/g, ""); //optional
+
+  //head section for SEO
+  const head = () => (
+    <Head>
+      <title>
+        {category.name} | {APP_NAME}
+      </title>
+      <meta
+        name="description"
+        content={stripHtmlTags(category.content.substring(0, 160))}
+      />
+      {/* facebook open graph */}
+      <meta property="og:title" content={category.name} />
+      <meta
+        property="og:description"
+        content={stripHtmlTags(category.content.substring(0, 160))}
+      />
+      <meta property="og:image" content={category.image.url} />
+      <meta property="og:image:secure_url" content={category.image.url} />
+    </Head>
+  );
 
   useEffect(() => {
     loadPopular();
@@ -137,41 +161,44 @@ const Links = (props) => {
     ));
 
   return (
-    <InfiniteScroll
-      pageStart={0}
-      loadMore={loadMore}
-      hasMore={size > 0 && size >= limit}
-      loader={<img src="/images/loader1.gif" key={0} alt="loader" />}
-    >
-      <div className="row">
-        <div className="col-md-8">
-          <h1 className="display-4 font-weight-bold my-text">
-            {category.name} - URL | Links
-          </h1>
-          <div className="lead alert alert-secondary pt-4">
-            <div style={{ wordWrap: "break-word" }}>
-              {renderHTML(category.content)}
+    <Fragment>
+      {head()}
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={loadMore}
+        hasMore={size > 0 && size >= limit}
+        loader={<img src="/images/loader1.gif" key={0} alt="loader" />}
+      >
+        <div className="row">
+          <div className="col-md-8">
+            <h1 className="display-4 font-weight-bold my-text">
+              {category.name} - URL | Links
+            </h1>
+            <div className="lead alert alert-secondary pt-4">
+              <div style={{ wordWrap: "break-word" }}>
+                {renderHTML(category.content)}
+              </div>
             </div>
           </div>
+          <div className="col-md-4">
+            <img
+              src={category.image.url}
+              alt={category.name}
+              style={{ width: "auto", maxHeight: "200px" }}
+            />
+          </div>
         </div>
-        <div className="col-md-4">
-          <img
-            src={category.image.url}
-            alt={category.name}
-            style={{ width: "auto", maxHeight: "200px" }}
-          />
-        </div>
-      </div>
-      <br />
+        <br />
 
-      <div className="row">
-        <div className="col-md-8">{listOfLinks()}</div>
-        <div className="col-md-4">
-          <h2 className="lead">Most popular in {category.name}</h2>
-          <div className="p-3">{showPopularLinks()}</div>
+        <div className="row">
+          <div className="col-md-8">{listOfLinks()}</div>
+          <div className="col-md-4">
+            <h2 className="lead">Most popular in {category.name}</h2>
+            <div className="p-3">{showPopularLinks()}</div>
+          </div>
         </div>
-      </div>
-    </InfiniteScroll>
+      </InfiniteScroll>
+    </Fragment>
   );
 };
 

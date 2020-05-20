@@ -5,6 +5,7 @@ import { showSuccessMessage, showErrorMessage } from "./../helpers/alerts";
 import { API } from "../config";
 import { isAuth } from "./../helpers/auth";
 import Router from "next/router";
+import { HeadSEO } from "./../components/HeadSEO";
 
 const Register = () => {
   const [state, setState] = useState({
@@ -181,14 +182,16 @@ const Register = () => {
   };
 
   return (
-    <div className="col-md-6 offset-md-3">
-      <h1>Register</h1>
-      <br />
-      {success && showSuccessMessage(success)}
-      {error && showErrorMessage(error)}
-      {registerForm()}
-      {/* <pre>{JSON.stringify(state, null, 4)}</pre> */}
-    </div>
+    <>
+      {HeadSEO("Register")}
+      <div className="col-md-6 offset-md-3">
+        <h1>Register</h1>
+        <br />
+        {success && showSuccessMessage(success)}
+        {error && showErrorMessage(error)}
+        {registerForm()}
+      </div>
+    </>
   );
 };
 
